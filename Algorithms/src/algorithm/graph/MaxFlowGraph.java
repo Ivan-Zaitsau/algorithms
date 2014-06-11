@@ -2,7 +2,7 @@ package algorithm.graph;
 
 public class MaxFlowGraph {
 	
-	private int n;
+	private int nodes;
 	private int srcId;
 	private int trgId;
 	private long[][] weights;
@@ -11,7 +11,7 @@ public class MaxFlowGraph {
 	private long maxFlow;
 	
 	public MaxFlowGraph(int nodes, int srcId, int trgId) {
-		this.n = nodes;
+		this.nodes = nodes;
 		this.srcId = srcId;
 		this.trgId = trgId;
 	}
@@ -21,33 +21,33 @@ public class MaxFlowGraph {
 		maxWeight = Math.max(maxWeight, weights[srcId][trgId]);
 	}
 	
+	private long updateFlow(int scrId, int trgId, long value) {
+		weights[srcId][trgId] -= value;
+		weights[trgId][srcId] += value;
+		return value;
+	}
+	
 	private long improveFlow(int nodeId, boolean[] isVisited, long minWeight, long weightThreshold) {
 		
 		long[] currentWeights = weights[nodeId];
 		if (currentWeights[trgId] >= weightThreshold) {
-			long flowImprovement = Math.min(minWeight, currentWeights[trgId]);
-			currentWeights[trgId] -= flowImprovement;
-			weights[trgId][nodeId] += flowImprovement;
-			return flowImprovement;
+			return updateFlow(nodeId, trgId, Math.min(minWeight, currentWeights[trgId]));
 		}
 		
 		isVisited[nodeId] = true;
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < nodes; i++) {
 			if (!isVisited[i] && currentWeights[i] >= weightThreshold) {
 				long flowImprovement = improveFlow(i, isVisited, Math.min(minWeight, currentWeights[i]), weightThreshold);
 				if (flowImprovement > 0) {
-					currentWeights[i] -= flowImprovement;
-					weights[i][nodeId] += flowImprovement;
-					return flowImprovement;
+					return updateFlow(nodeId, i, flowImprovement);
 				}
 			}
 		}
-		
 		return 0;
 	}
 	
 	private long improveFlow(long weightThreshold) {
-		return improveFlow(srcId, new boolean[n], Long.MAX_VALUE, weightThreshold);
+		return improveFlow(srcId, new boolean[nodes], Long.MAX_VALUE, weightThreshold);
 	}
 	
 	public long getFlowValue() {
