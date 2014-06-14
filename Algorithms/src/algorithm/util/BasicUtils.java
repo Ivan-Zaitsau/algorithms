@@ -1,8 +1,35 @@
 package algorithm.util;
 
 import java.util.Arrays;
+import java.util.BitSet;
 
 final public class BasicUtils {
+
+	static BitSet generateCompositeNumbersSet(int limit) {
+		BitSet isComposite = new BitSet(limit+1);
+		isComposite.set(0); isComposite.set(1);
+		for (int i = 2, limitSqrt = 1 + (int)Math.sqrt(limit); i <= limitSqrt; i = isComposite.nextClearBit(i+1)) {
+			for (int j = i*i; j <= limit; j+=i) {
+				isComposite.set(j);
+			}
+		}
+		return isComposite;
+	}
+	
+	static int[] generatePrimes(int limit) {
+		BitSet isComposite = generateCompositeNumbersSet(limit);
+		int[] primes = new int[limit - isComposite.cardinality() + 1];
+		for (int i = isComposite.nextClearBit(0), j = 0; i <= limit; i = isComposite.nextClearBit(i+1)) primes[j++] = i;
+		return primes;
+	}
+
+	public static int gcd(int a, int b) {
+		return (a > b) ? gcd(b, a) : (a > 0) ? gcd(b%a, a) : b;
+	}
+	
+	public static long gcd(long a, long b) {
+		return (a > b) ? gcd(b, a) : (a > 0) ? gcd(b%a, a) : b;
+	}
 	
 	public static int[][] reIndex(int[] a) {
 		// - array mapping
