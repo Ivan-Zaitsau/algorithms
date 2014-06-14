@@ -2,8 +2,8 @@ package algorithm.datastructure.array;
 
 public abstract class Aggregator {
 	
-	protected int indexSize;
-	protected long[] data;
+	private int indexSize;
+	private long[] data;
 	
 	public Aggregator(int size) {
 		indexSize = 1;
@@ -11,19 +11,19 @@ public abstract class Aggregator {
 		data = new long[indexSize + size];
 	}
 	
-	abstract protected void update(int index, long value);
+	abstract protected long merge(long oldValue, long newValue);
 	abstract protected long init();
 	abstract protected long aggregate(long a, long b);
 
 	public void updateValue(int index, long value) {
 		index += indexSize;
-		update(index, value);
+		data[index] = merge(data[index], value);
 		while (index > 1) {
 			data[index >>> 1] = aggregate(data[index], data[index^1]);
 			index >>>= 1;
 		}
 	}
-		
+
 	public long getAggregatedResult(int l, int r) {
 		long result = init();
 		l += indexSize;
