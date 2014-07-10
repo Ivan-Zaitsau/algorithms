@@ -51,7 +51,7 @@ public class PairMatcher {
 		return false;
 	}
 	
-	public synchronized int[] getMatches() {
+	public int[] getMatches() {
 		if (matches == null) {
 			matches = new int[n+m];
 			Arrays.fill(matches, NOT_MATCHED);
