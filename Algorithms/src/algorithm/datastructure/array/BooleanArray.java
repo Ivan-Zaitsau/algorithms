@@ -6,7 +6,8 @@ public class BooleanArray {
 	private static int BITS = 1 << ADDRESS_BITS;
 	private static int MASK = BITS - 1;
 	
-	private int length;
+	public final int length;
+	
 	private long[] data;
 
 	public BooleanArray(int size) {
@@ -22,11 +23,14 @@ public class BooleanArray {
 		data[index >>> ADDRESS_BITS] &= ~(1L << (index & MASK));
 	}
 	
-	public boolean get(int index) {
-		return (data[index >>> ADDRESS_BITS] & (1L << (index & MASK))) > 0;
+	public void set(int index, boolean value) {
+		if (value)
+			setTrue(index);
+		else
+			setFalse(index);
 	}
 	
-	public int length() {
-		return length;
+	public boolean get(int index) {
+		return (data[index >>> ADDRESS_BITS] & (1L << (index & MASK))) > 0;
 	}
 }

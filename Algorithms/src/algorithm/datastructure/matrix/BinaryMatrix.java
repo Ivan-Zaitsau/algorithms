@@ -1,5 +1,6 @@
 package algorithm.datastructure.matrix;
 
+// - TODO test
 public class BinaryMatrix {
 
 	private static int BLOCK_ADDRESS_BITS = 6;
@@ -44,13 +45,14 @@ public class BinaryMatrix {
 
 	public int bitCount(int firstRow, int lastRow, int firstColumn, int lastColumn) {
 		long leftMask = ~((1L << (firstColumn & BLOCK_MASK)) - 1);
-		long rightMask = ((1L << ((lastColumn & BLOCK_MASK) + 1)) - 1);
+		long rightMask = (1L << ((lastColumn+1) & BLOCK_MASK)) - 1;
 		int startingColumnSet = firstColumn >>> BLOCK_ADDRESS_BITS;
 		int endingColumnSet = lastColumn >>> BLOCK_ADDRESS_BITS;
 		int result = 0;
 		if (startingColumnSet == endingColumnSet) {
+			long mask = leftMask & rightMask;
 			for (int i = firstRow; i <= lastRow; i++) {
-				result += Long.bitCount(matrix[(i << widthAddressBits) + startingColumnSet] & leftMask & rightMask);
+				result += Long.bitCount(matrix[(i << widthAddressBits) + startingColumnSet] & mask);
 			}
 			return result;
 		}
