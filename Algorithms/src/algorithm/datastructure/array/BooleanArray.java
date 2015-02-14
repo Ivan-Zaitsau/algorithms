@@ -31,6 +31,6 @@ public class BooleanArray {
 	}
 	
 	public boolean get(int index) {
-		return (data[index >>> ADDRESS_BITS] & (1L << (index & MASK))) > 0;
+		return (data[index >>> ADDRESS_BITS] & (1L << (index & MASK))) != 0;
 	}
 }

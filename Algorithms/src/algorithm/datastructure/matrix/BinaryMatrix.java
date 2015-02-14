@@ -40,7 +40,7 @@ public class BinaryMatrix {
 	}
 
 	public boolean isBitSet(int row, int col) {
-		return (matrix[(row << widthAddressBits) + (col >>> BLOCK_ADDRESS_BITS)] & (1L << (col & BLOCK_MASK))) > 0;
+		return (matrix[(row << widthAddressBits) + (col >>> BLOCK_ADDRESS_BITS)] & (1L << (col & BLOCK_MASK))) != 0;
 	}
 
 	public int bitCount(int firstRow, int lastRow, int firstColumn, int lastColumn) {
