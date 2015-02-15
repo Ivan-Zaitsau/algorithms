@@ -31,7 +31,7 @@ public interface PrimalityTest {
 			return r;
 		}
 
-		private boolean isDivisibleBy235(long n) {
+		private boolean isDivisibleBy2or3or5(long n) {
 			if ((n & 1) == 0)
 				return true;
 			n = (n >>> 32) + (n & 0xFFFFFFFFL);
@@ -45,7 +45,7 @@ public interface PrimalityTest {
 		public boolean isPrime(long n) {
 			if (n == 2 | n == 3 | n == 5)
 				return true;
-			if (n <= 1 || isDivisibleBy235(n))
+			if (n <= 1 || isDivisibleBy2or3or5(n))
 				return false;
 			// - this sequence of witnesses ensures correct answer for any 64 bit integer
 			long[] witnesses = {2, 325, 9375, 28178, 450775, 9780504, 1795265022};
