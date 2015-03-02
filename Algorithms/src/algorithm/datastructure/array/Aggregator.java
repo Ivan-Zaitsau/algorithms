@@ -8,7 +8,7 @@ public abstract class Aggregator {
 	public Aggregator(int size) {
 		indexSize = 1;
 		while (indexSize < size) indexSize <<= 1;
-		data = new long[indexSize + size];
+		data = new long[indexSize + size + 1];
 	}
 	
 	abstract protected long merge(long oldValue, long newValue);
