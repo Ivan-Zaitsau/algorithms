@@ -8,14 +8,17 @@ final public class BasicUtils {
 	static BitSet generateCompositeNumbersSet(int limit) {
 		BitSet isComposite = new BitSet(limit+1);
 		isComposite.set(0); isComposite.set(1);
-		for (int i = 2, limitSqrt = 1 + (int)Math.sqrt(limit); i <= limitSqrt; i = isComposite.nextClearBit(i+1)) {
-			for (int j = i*i; j <= limit; j+=i) {
+		for (int j = 4; j <= limit; j+=2) {
+			isComposite.set(j);
+		}
+		for (int i = 3, limitSqrt = 1 + (int)Math.sqrt(limit); i <= limitSqrt; i = isComposite.nextClearBit(i+1)) {
+			for (int j = i*i; j <= limit; j+=i+i) {
 				isComposite.set(j);
 			}
 		}
 		return isComposite;
 	}
-	
+
 	static int[] generatePrimes(int limit) {
 		BitSet isComposite = generateCompositeNumbersSet(limit);
 		int[] primes = new int[limit - isComposite.cardinality() + 1];
@@ -23,15 +26,15 @@ final public class BasicUtils {
 		return primes;
 	}
 
-	public static int gcd(int a, int b) {
+	static int gcd(int a, int b) {
 		return (a > b) ? gcd(b, a) : (a > 0) ? gcd(b%a, a) : b;
 	}
 	
-	public static long gcd(long a, long b) {
+	static long gcd(long a, long b) {
 		return (a > b) ? gcd(b, a) : (a > 0) ? gcd(b%a, a) : b;
 	}
 	
-	public static int[][] reIndex(int[] a) {
+	static int[][] reIndex(int[] a) {
 		// - array mapping
 		int[] mapping = Arrays.copyOf(a, a.length);
 		Arrays.sort(mapping);
@@ -48,7 +51,7 @@ final public class BasicUtils {
 		return new int[][] {array, mapping};
 	}
 	
-	public static long[][] reIndex(long[] a) {
+	static long[][] reIndex(long[] a) {
 		// - array mapping
 		long[] mapping = Arrays.copyOf(a, a.length);
 		Arrays.sort(mapping);
