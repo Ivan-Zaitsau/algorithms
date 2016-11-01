@@ -2,8 +2,8 @@ package algorithm.datastructure.array;
 
 public abstract class Aggregator {
 	
-	private int indexSize;
-	private long[] data;
+	protected int indexSize;
+	protected long[] data;
 	
 	public Aggregator(int size) {
 		indexSize = 1;

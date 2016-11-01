@@ -1,6 +1,5 @@
 package algorithm.datastructure.matrix;
 
-// - TODO test
 public class BinaryMatrix {
 
 	private static int BLOCK_ADDRESS_BITS = 6;

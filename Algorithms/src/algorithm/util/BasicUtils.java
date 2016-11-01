@@ -26,6 +26,36 @@ final public class BasicUtils {
 		return primes;
 	}
 
+	// - supports numbers up to approximately 10^18
+	static int[] getDivisors(long v) {
+		if (v <= 1)
+			return new int[]{};
+		int i = 0;
+		int[] divisors = new int[64];
+		while ((v & 1) == 0) {
+			divisors[i++] = 2;
+			v >>>= 1;
+		}
+		rankLoop:
+		for (int rank = 24, primeIndex = 0; rank >= 0; rank -= 3) {
+			int limit = Integer.MAX_VALUE >>> rank;
+			int[] primes = generatePrimes(limit);
+			for (int j = primeIndex; j < primes.length; j++) {
+				final int p = primes[j];
+				while (v % p == 0) {
+					v /= p;
+					divisors[i++] = p;
+				}
+				if (p*p > v)
+					break rankLoop;
+			}
+			primeIndex = primes.length;
+		}
+		if (v > 1)
+			divisors[i++] = (int) v;
+		return Arrays.copyOf(divisors, i);
+	}
+	
 	static int gcd(int a, int b) {
 		return (a > b) ? gcd(b, a) : (a > 0) ? gcd(b%a, a) : b;
 	}
