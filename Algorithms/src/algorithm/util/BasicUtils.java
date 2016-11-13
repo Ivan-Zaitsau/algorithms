@@ -8,11 +8,11 @@ final public class BasicUtils {
 	static BitSet generateCompositeNumbersSet(int limit) {
 		BitSet isComposite = new BitSet(limit+1);
 		isComposite.set(0); isComposite.set(1);
-		for (int j = 4; j <= limit; j+=2) {
+		for (int j = 4; 0 <= j & j <= limit; j+=2) {
 			isComposite.set(j);
 		}
-		for (int i = 3, limitSqrt = 1 + (int)Math.sqrt(limit); i <= limitSqrt; i = isComposite.nextClearBit(i+1)) {
-			for (int j = i*i; j <= limit; j+=i+i) {
+		for (int i = 3, limitSqrt = 1 + (int)Math.sqrt(limit); 0 <= i & i <= limitSqrt; i = isComposite.nextClearBit(i+1)) {
+			for (int j = i*i; 0 <= j & j <= limit; j+=i+i) {
 				isComposite.set(j);
 			}
 		}
@@ -22,23 +22,23 @@ final public class BasicUtils {
 	static int[] generatePrimes(int limit) {
 		BitSet isComposite = generateCompositeNumbersSet(limit);
 		int[] primes = new int[limit - isComposite.cardinality() + 1];
-		for (int i = isComposite.nextClearBit(0), j = 0; i <= limit; i = isComposite.nextClearBit(i+1)) primes[j++] = i;
+		for (int i = isComposite.nextClearBit(0), j = 0; 0 <= i & i <= limit; i = isComposite.nextClearBit(i+1)) primes[j++] = i;
 		return primes;
 	}
 
 	// - supports numbers up to approximately 10^18
-	static int[] getDivisors(long v) {
+	static long[] getDivisors(long v) {
 		if (v <= 1)
-			return new int[]{};
+			return new long[]{};
 		int i = 0;
-		int[] divisors = new int[64];
+		long[] divisors = new long[62];
 		while ((v & 1) == 0) {
 			divisors[i++] = 2;
 			v >>>= 1;
 		}
 		rankLoop:
-		for (int rank = 24, primeIndex = 0; rank >= 0; rank -= 3) {
-			int limit = Integer.MAX_VALUE >>> rank;
+		for (int rank = 24, primeIndex = 0; rank >= 0; rank -= 2) {
+			int limit = (Integer.MAX_VALUE-1) >>> rank;
 			int[] primes = generatePrimes(limit);
 			for (int j = primeIndex; j < primes.length; j++) {
 				final int p = primes[j];
@@ -46,13 +46,13 @@ final public class BasicUtils {
 					v /= p;
 					divisors[i++] = p;
 				}
-				if (p*p > v)
+				if ((long)p*p > v)
 					break rankLoop;
 			}
 			primeIndex = primes.length;
 		}
-		if (v > 1)
-			divisors[i++] = (int) v;
+		if (i > 0 & v > 1)
+			divisors[i++] = v;
 		return Arrays.copyOf(divisors, i);
 	}
 	
