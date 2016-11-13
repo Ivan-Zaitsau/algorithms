@@ -36,20 +36,17 @@ final public class BasicUtils {
 			divisors[i++] = 2;
 			v >>>= 1;
 		}
-		rankLoop:
-		for (int rank = 24, primeIndex = 0; rank >= 0; rank -= 2) {
-			int limit = (Integer.MAX_VALUE-1) >>> rank;
-			int[] primes = generatePrimes(limit);
-			for (int j = primeIndex; j < primes.length; j++) {
-				final int p = primes[j];
-				while (v % p == 0) {
-					v /= p;
-					divisors[i++] = p;
-				}
-				if ((long)p*p > v)
-					break rankLoop;
+		while (v % 3 == 0) {
+			v /= 3;
+			divisors[i++] = 3;
+		}
+		for (int p = 5, d = 2; p <= Integer.MAX_VALUE; p += d, d = 6-d) {
+			while (v % p == 0) {
+				v /= p;
+				divisors[i++] = p;
 			}
-			primeIndex = primes.length;
+			if ((long)p*p > v)
+				break;
 		}
 		if (i > 0 & v > 1)
 			divisors[i++] = v;
