@@ -2,7 +2,7 @@ package algorithm.graph;
 
 import java.util.Arrays;
 
-public class PairMatcher {
+public class BipartiteGraphMatching {
 	
 	public static final int NOT_MATCHED = -1;
 
@@ -11,7 +11,7 @@ public class PairMatcher {
 	private int[] matches;
 	private int[][] possiblePairs;
 	
-	public PairMatcher(int n, int m, int[][] possiblePairs) {
+	public BipartiteGraphMatching(int n, int m, int[][] possiblePairs) {
 		this.n = n;
 		this.m = m;
 		this.possiblePairs = new int[n][];
