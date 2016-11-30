@@ -19,7 +19,6 @@ final public class BasicUtils {
 		return isComposite;
 	}
 
-	// - rework to use
 	static int[] generatePrimes(int limit) {
 		BitSet isComposite = generateCompositeNumbersSet(limit);
 		int[] primes = new int[limit - isComposite.cardinality() + 1];
@@ -29,7 +28,6 @@ final public class BasicUtils {
 		return primes;
 	}
 
-	// - supports numbers up to approximately 10^18
 	static long[] getDivisors(long v) {
 		if (v <= 1)
 			return new long[]{};
