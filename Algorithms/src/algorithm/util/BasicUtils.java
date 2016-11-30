@@ -19,10 +19,13 @@ final public class BasicUtils {
 		return isComposite;
 	}
 
+	// - rework to use
 	static int[] generatePrimes(int limit) {
 		BitSet isComposite = generateCompositeNumbersSet(limit);
 		int[] primes = new int[limit - isComposite.cardinality() + 1];
-		for (int i = isComposite.nextClearBit(0), j = 0; 0 <= i & i <= limit; i = isComposite.nextClearBit(i+1)) primes[j++] = i;
+		for (int i = 0, j = 0; 0 <= i & i <= limit; i++)
+			if (!isComposite.get(i))
+				primes[j++] = i;
 		return primes;
 	}
 
