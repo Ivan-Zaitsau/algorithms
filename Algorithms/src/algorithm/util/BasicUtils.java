@@ -20,9 +20,12 @@ final public class BasicUtils {
 	}
 
 	static int[] generatePrimes(int limit) {
+		if (limit < 2)
+			return new int[] {};
 		BitSet isComposite = generateCompositeNumbersSet(limit);
 		int[] primes = new int[limit - isComposite.cardinality() + 1];
-		for (int i = 0, j = 0; 0 <= i & i <= limit; i++)
+		primes[0] = 2;
+		for (int i = 3, j = 1; 0 <= i & i <= limit; i+=2)
 			if (!isComposite.get(i))
 				primes[j++] = i;
 		return primes;
@@ -54,11 +57,11 @@ final public class BasicUtils {
 		return Arrays.copyOf(divisors, i);
 	}
 	
-	static int gcd(int a, int b) {
+	static int gcd(final int a, final int b) {
 		return (a > b) ? gcd(b, a) : (a > 0) ? gcd(b%a, a) : b;
 	}
 	
-	static long gcd(long a, long b) {
+	static long gcd(final long a, final long b) {
 		return (a > b) ? gcd(b, a) : (a > 0) ? gcd(b%a, a) : b;
 	}
 	

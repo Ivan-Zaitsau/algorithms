@@ -30,16 +30,27 @@ public class BinaryMatrix {
 		matrix = new long[rows << widthAddressBits];
 	}
 
-	public void setBit(int row, int col) {
+	public void setBit(final int row, final int col) {
 		matrix[(row << widthAddressBits) + (col >>> BLOCK_ADDRESS_BITS)] |= 1L << (col & BLOCK_MASK);
  	}
 	
-	public void clearBit(int row, int col) {
+	public void clearBit(final int row, final int col) {
 		matrix[(row << widthAddressBits) + (col >>> BLOCK_ADDRESS_BITS)] &= ~(1L << (col & BLOCK_MASK));
 	}
 
-	public boolean isBitSet(int row, int col) {
+	public boolean isBitSet(final int row, final int col) {
 		return (matrix[(row << widthAddressBits) + (col >>> BLOCK_ADDRESS_BITS)] & (1L << (col & BLOCK_MASK))) != 0;
+	}
+
+	public void set(final int row, final int col, final int value) {
+		if (value != 0)
+			setBit(row, col);
+		else
+			clearBit(row, col);
+	}
+
+	public int get(final int row, final int col) {
+		return isBitSet(row, col) ? 1 : 0;
 	}
 
 	public int bitCount(int firstRow, int lastRow, int firstColumn, int lastColumn) {
