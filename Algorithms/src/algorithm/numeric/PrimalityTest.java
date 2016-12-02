@@ -3,7 +3,10 @@ package algorithm.numeric;
 public interface PrimalityTest {
 	
 	PrimalityTest MILLER_RABIN = new PrimalityTest() {
-		
+
+		// - this sequence of witnesses ensures correct answer for any 64 bit integer
+		final int[] witnesses = {2, 325, 9375, 28178, 450775, 9780504, 1795265022};
+
 		private long mulMod(long a, long b, long m) {
 			if (a >= m) a %= m;
 			if (b >= m) b %= m;
@@ -47,8 +50,6 @@ public interface PrimalityTest {
 				return true;
 			if (n <= 1 || isDivisibleBy2or3or5(n))
 				return false;
-			// - this sequence of witnesses ensures correct answer for any 64 bit integer
-			long[] witnesses = {2, 325, 9375, 28178, 450775, 9780504, 1795265022};
 			int s = Long.numberOfTrailingZeros(n-1);
 			long d = (n-1) >>> s;
 			nextWitness:
