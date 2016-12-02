@@ -2,9 +2,9 @@ package algorithm.datastructure.matrix;
 
 public class BinaryMatrix {
 
-	private static int BLOCK_ADDRESS_BITS = 6;
-	private static int BLOCK_SIZE = 1 << BLOCK_ADDRESS_BITS;
-	private static int BLOCK_MASK = BLOCK_SIZE - 1;
+	private static final int BLOCK_ADDRESS_BITS = 6;
+	private static final int BLOCK_SIZE = 1 << BLOCK_ADDRESS_BITS;
+	private static final int BLOCK_MASK = BLOCK_SIZE - 1;
 	
 	private int rows, cols;
 	private int widthAddressBits;

@@ -2,9 +2,9 @@ package algorithm.datastructure.array;
 
 public class BooleanArray {
 	
-	private static int ADDRESS_BITS = 6;
-	private static int BITS = 1 << ADDRESS_BITS;
-	private static int MASK = BITS - 1;
+	private static final int ADDRESS_BITS = 6;
+	private static final int BITS = 1 << ADDRESS_BITS;
+	private static final int MASK = BITS - 1;
 	
 	public final int length;
 	
