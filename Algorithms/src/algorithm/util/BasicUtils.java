@@ -5,7 +5,7 @@ import java.util.BitSet;
 
 final public class BasicUtils {
 
-	static BitSet generateCompositeNumbersSet(int limit) {
+	public static BitSet generateCompositeNumbersSet(int limit) {
 		BitSet isComposite = new BitSet(limit+1);
 		isComposite.set(0); isComposite.set(1);
 		for (int j = 4; 0 <= j & j <= limit; j+=2) {
@@ -19,7 +19,7 @@ final public class BasicUtils {
 		return isComposite;
 	}
 
-	static int[] generatePrimes(int limit) {
+	public static int[] generatePrimes(int limit) {
 		if (limit < 2)
 			return new int[] {};
 		BitSet isComposite = generateCompositeNumbersSet(limit);
@@ -31,7 +31,7 @@ final public class BasicUtils {
 		return primes;
 	}
 
-	static long[] getDivisors(long v) {
+	public static long[] getDivisors(long v) {
 		if (v <= 1)
 			return new long[]{};
 		int i = 0;
@@ -57,15 +57,15 @@ final public class BasicUtils {
 		return Arrays.copyOf(divisors, i);
 	}
 	
-	static int gcd(final int a, final int b) {
+	public static int gcd(final int a, final int b) {
 		return (a > b) ? gcd(b, a) : (a > 0) ? gcd(b%a, a) : b;
 	}
 	
-	static long gcd(final long a, final long b) {
+	public static long gcd(final long a, final long b) {
 		return (a > b) ? gcd(b, a) : (a > 0) ? gcd(b%a, a) : b;
 	}
 	
-	static int[][] reIndex(int[] a) {
+	public static int[][] reIndex(int[] a) {
 		// - array mapping
 		int[] mapping = Arrays.copyOf(a, a.length);
 		Arrays.sort(mapping);
@@ -82,7 +82,7 @@ final public class BasicUtils {
 		return new int[][] {array, mapping};
 	}
 	
-	static long[][] reIndex(long[] a) {
+	public static long[][] reIndex(long[] a) {
 		// - array mapping
 		long[] mapping = Arrays.copyOf(a, a.length);
 		Arrays.sort(mapping);

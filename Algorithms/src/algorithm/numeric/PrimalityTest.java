@@ -5,7 +5,7 @@ public interface PrimalityTest {
 	PrimalityTest MILLER_RABIN = new PrimalityTest() {
 
 		// - this sequence of witnesses ensures correct answer for any 64 bit integer
-		final int[] witnesses = {2, 325, 9375, 28178, 450775, 9780504, 1795265022};
+		private final int[] witnesses = {2, 325, 9375, 28178, 450775, 9780504, 1795265022};
 
 		private long mulMod(long a, long b, long m) {
 			if (a >= m) a %= m;
