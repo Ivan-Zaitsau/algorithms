@@ -3,12 +3,11 @@ package algorithm.datastructure.matrix;
 public class BinaryMatrix {
 
 	private static final int BLOCK_ADDRESS_BITS = 6;
-	private static final int BLOCK_SIZE = 1 << BLOCK_ADDRESS_BITS;
-	private static final int BLOCK_MASK = BLOCK_SIZE - 1;
+	private static final int BLOCK_MASK = (1 << BLOCK_ADDRESS_BITS) - 1;
 	
-	private int rows, cols;
+	private final int rows, cols;
 	private int widthAddressBits;
-	private long[] matrix;
+	private long[] data;
 	
 	public BinaryMatrix(int rows, int cols) {
 		this.rows = rows;
@@ -26,20 +25,20 @@ public class BinaryMatrix {
 
 	protected void initMatrix() {
 		widthAddressBits = 0;
-		while (BLOCK_SIZE << widthAddressBits < cols) widthAddressBits++;
-		matrix = new long[rows << widthAddressBits];
+		while (1L << (BLOCK_ADDRESS_BITS + widthAddressBits) < cols) widthAddressBits++;
+		data = new long[rows << widthAddressBits];
 	}
 
 	public void setBit(final int row, final int col) {
-		matrix[(row << widthAddressBits) + (col >>> BLOCK_ADDRESS_BITS)] |= 1L << (col & BLOCK_MASK);
+		data[(row << widthAddressBits) + (col >>> BLOCK_ADDRESS_BITS)] |= 1L << (col & BLOCK_MASK);
  	}
 	
 	public void clearBit(final int row, final int col) {
-		matrix[(row << widthAddressBits) + (col >>> BLOCK_ADDRESS_BITS)] &= ~(1L << (col & BLOCK_MASK));
+		data[(row << widthAddressBits) + (col >>> BLOCK_ADDRESS_BITS)] &= ~(1L << (col & BLOCK_MASK));
 	}
 
 	public boolean isBitSet(final int row, final int col) {
-		return (matrix[(row << widthAddressBits) + (col >>> BLOCK_ADDRESS_BITS)] & (1L << (col & BLOCK_MASK))) != 0;
+		return (data[(row << widthAddressBits) + (col >>> BLOCK_ADDRESS_BITS)] & (1L << (col & BLOCK_MASK))) != 0;
 	}
 
 	public void set(final int row, final int col, final int value) {
@@ -62,16 +61,16 @@ public class BinaryMatrix {
 		if (startingColumnSet == endingColumnSet) {
 			long mask = leftMask & rightMask;
 			for (int i = firstRow; i <= lastRow; i++) {
-				result += Long.bitCount(matrix[(i << widthAddressBits) + startingColumnSet] & mask);
+				result += Long.bitCount(data[(i << widthAddressBits) + startingColumnSet] & mask);
 			}
 			return result;
 		}
 		for (int i = firstRow; i <= lastRow; i++) {
-			result += Long.bitCount(matrix[(i << widthAddressBits) + startingColumnSet] & leftMask);
+			result += Long.bitCount(data[(i << widthAddressBits) + startingColumnSet] & leftMask);
 			for (int j = startingColumnSet + 1; j < endingColumnSet; j++) {
-				result += Long.bitCount(matrix[(i << widthAddressBits) + j]);
+				result += Long.bitCount(data[(i << widthAddressBits) + j]);
 			}
-			result += Long.bitCount(matrix[(i << widthAddressBits) + endingColumnSet] & rightMask);
+			result += Long.bitCount(data[(i << widthAddressBits) + endingColumnSet] & rightMask);
 		}
 
 		return result;
