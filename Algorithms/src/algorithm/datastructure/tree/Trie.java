@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Trie {
 	
-	private Node root = new Node();
+	private final Node root = new Node();
 	
 	private static class Node {
 		Map<Character, Node> children = new HashMap<>();

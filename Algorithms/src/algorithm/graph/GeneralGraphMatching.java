@@ -6,8 +6,8 @@ public class GeneralGraphMatching {
 
 	public static final int NOT_MATCHED = -1;
 
+	private final int[][] possiblePairs;
 	private int[] matches;
-	private int[][] possiblePairs;
 	
 	public GeneralGraphMatching(int[][] possiblePairs) {
 		int n = possiblePairs.length;

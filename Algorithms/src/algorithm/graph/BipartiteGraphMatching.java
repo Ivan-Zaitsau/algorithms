@@ -6,10 +6,10 @@ public class BipartiteGraphMatching {
 	
 	public static final int NOT_MATCHED = -1;
 
-	private int n;
-	private int m;
+	private final int n;
+	private final int m;
+	private final int[][] possiblePairs;
 	private int[] matches;
-	private int[][] possiblePairs;
 	
 	public BipartiteGraphMatching(int n, int m, int[][] possiblePairs) {
 		this.n = n;

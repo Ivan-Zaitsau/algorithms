@@ -5,9 +5,9 @@ import java.util.Arrays;
 public class MinSpanningTree {
 	
 	public static final class Edge implements Comparable<Edge> {
-		int srcId;
-		int trgId;
-		long value;
+		final int srcId;
+		final int trgId;
+		final long value;
 		
 		Edge(int srcId, int trgId, long value) {
 			this.srcId = srcId;

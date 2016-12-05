@@ -2,10 +2,10 @@ package algorithm.graph;
 
 public class MaxFlowGraph {
 	
-	private int nodes;
-	private int srcId;
-	private int trgId;
-	private long[][] weights;
+	private final int nodes;
+	private final int srcId;
+	private final int trgId;
+	private final long[][] weights;
 
 	private long maxWeight;
 	private long maxFlow;
@@ -14,10 +14,11 @@ public class MaxFlowGraph {
 		this.nodes = nodes;
 		this.srcId = srcId;
 		this.trgId = trgId;
+		this.weights = new long[nodes][nodes];
 	}
 	
 	public void addEdge(int srcId, int trgId, long value) {
-		weights[srcId][trgId] = value;
+		weights[srcId][trgId] += value;
 		maxWeight = Math.max(maxWeight, weights[srcId][trgId]);
 	}
 	
