@@ -75,6 +75,7 @@ public class MinSpanningTree {
 			nodes[i] = new NodeEntry();
 			nodes[i].owner = new NodesSet(nodes[i]);
 		}
+		edges = Arrays.copyOf(edges, edgesCount);
 		Arrays.sort(edges, 0, edgesCount);
 		Edge[] spanningTree = new Edge[nodesCount-1];
 		int k = 0;
@@ -93,7 +94,7 @@ public class MinSpanningTree {
 		Edge[] spanningTree = getMinSpanningTree();
 		if (spanningTree == null) return -1;
 		long treeSize = 0;
-		for (Edge edge : edges) treeSize += edge.value;
+		for (Edge edge : spanningTree) treeSize += edge.value;
 		return treeSize;
 	}
 }
