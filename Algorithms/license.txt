@@ -3,7 +3,7 @@ Restricted License
 Copyright (c) 2012 Ivan Zaitsau
 
 This software can only be used for presentation and educational purposes.
-Any other use requires implicit permission of the author.
+Any other use requires explicit permission of the author.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
