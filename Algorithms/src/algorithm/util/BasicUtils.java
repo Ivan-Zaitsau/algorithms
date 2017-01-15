@@ -25,7 +25,7 @@ final public class BasicUtils {
 		BitSet isComposite = generateCompositeNumbersSet(limit);
 		int[] primes = new int[limit - isComposite.cardinality() + 1];
 		primes[0] = 2;
-		for (int i = 3, j = 1; 0 <= i & i <= limit; i+=2)
+		for (int i = 3, j = 1; 0 < i & i <= limit; i+=2)
 			if (!isComposite.get(i))
 				primes[j++] = i;
 		return primes;
@@ -56,7 +56,7 @@ final public class BasicUtils {
 			divisors[i++] = v;
 		return Arrays.copyOf(divisors, i);
 	}
-	
+
 	public static int gcd(final int a, final int b) {
 		return (a > b) ? gcd(b, a) : (a > 0) ? gcd(b%a, a) : b;
 	}

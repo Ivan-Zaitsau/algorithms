@@ -3,11 +3,11 @@ package algorithm.numeric;
 import java.util.Arrays;
 import java.util.BitSet;
 
-public class IntegersModuloN {
+public class IntegersModuloField {
 
 	private final int mod;
 	
-	public IntegersModuloN(int mod) {
+	public IntegersModuloField(int mod) {
 		this.mod = mod;
 	}
 	
@@ -49,6 +49,9 @@ public class IntegersModuloN {
 	}
 	
 	public int nCk(final int n, final int k) {
+		if (n-k < k)
+			return nCk(n, n-k);
+
 		BitSet isComposite = generateCompositeNumbersSet(k);
 		int[] divCounts = new int[k+1];
 		for (int i = 2; i <= k; i++)
