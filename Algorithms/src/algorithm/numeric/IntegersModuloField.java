@@ -41,8 +41,7 @@ public class IntegersModuloField {
 	
 	public synchronized void enableFactorialsCache(int upTo, int density) {
 		if (density < 1)
-			return;
-
+			density = 1;
 		if (upTo >= mod)
 			upTo = mod-1;
 
