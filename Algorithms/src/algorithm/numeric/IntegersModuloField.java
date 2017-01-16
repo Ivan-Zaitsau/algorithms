@@ -36,12 +36,41 @@ public class IntegersModuloField {
 		return result;
 	}
 	
+	private volatile int[] factorialsCache;
+	private volatile int density;
+	
+	public synchronized void enableFactorialsCache(int upTo, int density) {
+		if (density < 1)
+			return;
+
+		if (upTo >= mod)
+			upTo = mod-1;
+
+		factorialsCache = new int[1 + upTo / density];
+		this.density = density;
+		int factorial = 1;
+		int n = 1;
+		for (int i = 0; i < factorialsCache.length; i++) {
+			factorialsCache[i] = factorial;
+			for (int j = 0; j < density; j++, n++)
+				factorial = mul(factorial, n);
+		}
+	}
+	
 	public int factorial(int n) {
 		if (n >= mod)
 			return 0;
 		
 		int fact = 1;
-		for (int i = 2; i <= n; i++)
+		int i = 1;
+		synchronized (this) {
+			if (factorialsCache != null) {
+				final int fci = (density * (factorialsCache.length - 1) >= n) ? factorialsCache.length - 1 : n / density;
+				fact = factorialsCache[fci];
+				i = fci * density;
+			}			
+		}
+		for (i++; i <= n; i++)
 			fact = mul(fact, i);
 		
 		return fact;
