@@ -4,13 +4,13 @@ import java.util.Arrays;
 
 final public class GraphUtil {
 	
-	static public int[][] toNearby(int[][] weights, int isUnconnected) {
+	static public int[][] toNearby(int[][] weights, int meansUnconnected) {
 		int[][] nearby = new int[weights.length][];
 		int[] near = new int[weights.length];
 		for (int i = 0; i < weights.length; i++) {
 			int nearbyAmount = 0;
 			for (int j = 0; j < weights[i].length; j++)
-				if (weights[i][j] != isUnconnected) {
+				if (weights[i][j] != meansUnconnected) {
 					near[nearbyAmount++] = j;
 				}
 			nearby[i] = Arrays.copyOf(near, nearbyAmount);

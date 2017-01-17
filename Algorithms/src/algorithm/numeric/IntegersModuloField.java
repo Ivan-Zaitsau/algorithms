@@ -87,9 +87,10 @@ public class IntegersModuloField {
 		return counts;
 	}
 
-	public int nCk(final int n, final int k) {
+	// - number of combinations of n elements in k positions
+	public int C(final int n, final int k) {
 		if (n-k < k)
-			return nCk(n, n-k);
+			return C(n, n-k);
 
 		BitSet isComposite = new BitSet(k+1);
 		int[] remainders = new int[k+1];
