@@ -72,7 +72,7 @@ final public class BasicUtils {
 		int i = 1;
 		while(i < mapping.length && mapping[i-1] < mapping[i]) i++;
 		int j = i;
-		while (++i < a.length)
+		while (++i < mapping.length)
 			if (mapping[i-1] < mapping[i])
 				mapping[j++] = mapping[i];
 		mapping = Arrays.copyOf(mapping, j);
@@ -89,7 +89,7 @@ final public class BasicUtils {
 		int i = 1;
 		while(i < mapping.length && mapping[i-1] < mapping[i]) i++;
 		int j = i;
-		while (++i < a.length)
+		while (++i < mapping.length)
 			if (mapping[i-1] < mapping[i])
 				mapping[j++] = mapping[i];
 		mapping = Arrays.copyOf(mapping, j);

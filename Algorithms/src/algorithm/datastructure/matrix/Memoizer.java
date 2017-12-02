@@ -1,6 +1,5 @@
 package algorithm.datastructure.matrix;
 
-import java.util.Arrays;
 import java.util.BitSet;
 
 public class Memoizer {
@@ -9,14 +8,14 @@ public class Memoizer {
 	private int[] dimensions;
 	
 	public Memoizer(int... dimensions) {
-		this.dimensions = Arrays.copyOf(dimensions, dimensions.length);
+		this.dimensions = dimensions.clone();
 		int size = 1;
 		for (int dim : this.dimensions)
 			size *= dim;
-		data = new BitSet(size+1);
+		data = new BitSet(size);
 	}
 	
-	public boolean wasThere(int... ids) {
+	public boolean dejavu(int... ids) {
 		int globalId = 0;
 		for (int i = 0; i < dimensions.length; i++) {
 			if (ids[i] >= dimensions[i])

@@ -2,7 +2,8 @@ package algorithm.graph;
 
 import java.util.Arrays;
 
-public class BipartiteGraphMatching {
+// - Ford–Fulkerson algorithm
+public class BipartiteGraphMaxMatching {
 	
 	public static final int NOT_MATCHED = -1;
 
@@ -11,7 +12,7 @@ public class BipartiteGraphMatching {
 	private final int[][] possiblePairs;
 	private int[] matches;
 	
-	public BipartiteGraphMatching(int n, int m, int[][] possiblePairs) {
+	public BipartiteGraphMaxMatching(int n, int m, int[][] possiblePairs) {
 		this.n = n;
 		this.m = m;
 		this.possiblePairs = new int[n][];

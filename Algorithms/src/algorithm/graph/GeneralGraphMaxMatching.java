@@ -2,14 +2,15 @@ package algorithm.graph;
 
 import java.util.Arrays;
 
-public class GeneralGraphMatching {
+//- Ford–Fulkerson-Zaitsau algorithm
+public class GeneralGraphMaxMatching {
 
 	public static final int NOT_MATCHED = -1;
 
 	private final int[][] possiblePairs;
 	private int[] matches;
 	
-	public GeneralGraphMatching(int[][] possiblePairs) {
+	public GeneralGraphMaxMatching(int[][] possiblePairs) {
 		int n = possiblePairs.length;
 		this.possiblePairs = new int[n][];
 		for (int i = 0; i < n; i++) {

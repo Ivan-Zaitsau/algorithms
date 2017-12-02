@@ -9,7 +9,14 @@ public class IntegersModuloField {
 	public IntegersModuloField(int mod) {
 		this.mod = mod;
 	}
-	
+
+	public int cast(long a) {
+		if (a < 0)
+			a += (long)mod << 32;
+
+		return (int) (a % mod);
+	}
+
 	public int add(int a, int b) {
 		int r = a + b - mod;
 		return r + (mod & (r >> 31));
@@ -39,23 +46,23 @@ public class IntegersModuloField {
 	private volatile int[] factorialsCache;
 	private volatile int density;
 	
-	public synchronized void enableFactorialsCache(int upTo, int density) {
+	// - density <= 1 - cache every single factorial value
+	// - density == i - cache every i-th factorial value
+	public synchronized void setupFactorialsCache(int maxCachedFactorial, int density) {
 		if (density < 1)
 			density = 1;
-		if (upTo >= mod)
-			upTo = mod-1;
+		if (maxCachedFactorial >= mod)
+			maxCachedFactorial = mod-1;
 
-		factorialsCache = new int[1 + upTo / density];
+		factorialsCache = new int[1 + maxCachedFactorial / density];
 		this.density = density;
-		int factorial = 1;
-		int n = 1;
-		for (int i = 0; i < factorialsCache.length; i++) {
+		for (int i = 0, n = 1, factorial = 1; i < factorialsCache.length; i++) {
 			factorialsCache[i] = factorial;
 			for (int j = 0; j < density; j++, n++)
 				factorial = mul(factorial, n);
 		}
 	}
-	
+
 	public int factorial(int n) {
 		if (n >= mod)
 			return 0;
@@ -102,7 +109,7 @@ public class IntegersModuloField {
 			// - prime
 			if (!isComposite.get(i)) {
 				// - mark as not primes
-				for (int j = i*i; j <= k; j+=i) {
+				for (int j = i*i; j <= k; j += i) {
 					isComposite.set(j);
 				}
 				result = mul(result, pow(i, factorialDivCounts(n, i) - factorialDivCounts(n - k, i) - factorialDivCounts(k, i)));
@@ -119,4 +126,27 @@ public class IntegersModuloField {
 		}
 		return result;
 	}
+	
+	private long xgcd(final long a, final long b, final long sa, final long sb, final long ta, final long tb) {
+		if (b == 0)
+			return ta;
+
+		final long qi = a / b;
+		final long ri = a - qi * b;
+		final long si = sa - qi * sb;
+		final long ti = ta - qi * tb;
+		
+		return xgcd(b, ri, sb, si, tb, ti);
+	}
+	
+	public int inverse(final int a) {
+		if (a == 0)
+			throw new ArithmeticException("Division by zero.");
+
+		if (a == 1)
+			return a;
+		
+		return cast(xgcd(mod, a, 1, 0, 0, 1));
+	}
+
 }
